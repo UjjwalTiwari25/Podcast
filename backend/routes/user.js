@@ -16,7 +16,6 @@ router.post("/sign-up", async (req, res) => {
         });
       }
   
-
       // Validate username length
       if (username.length < 4) {
         return res.status(400).json({
@@ -84,5 +83,59 @@ router.post("/sign-up", async (req, res) => {
       });
     }
   });
+
+  // User Login Route
+router.post("/sign-in", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email instead of username
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, existingUser.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      {
+        id: existingUser._id,
+        username: existingUser.username,
+        role: existingUser.role
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "14d" }
+    );
+
+    res.status(200).json({
+      id: existingUser._id,
+      role: existingUser.role,
+      token
+    });
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// Get User Information (Protected Route)
+router.get("/get-user-information", authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("User Info Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 
 module.exports = router;
