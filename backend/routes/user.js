@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+
 
 // User Signup Route
 router.post("/sign-up", async (req, res) => {
@@ -105,37 +107,31 @@ router.post("/sign-in", async (req, res) => {
     const token = jwt.sign(
       {
         id: existingUser._id,
-        username: existingUser.username,
-        role: existingUser.role
+        email: existingUser.email,
+ 
       },
       process.env.JWT_SECRET,
       { expiresIn: "14d" }
     );
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+      secure: process.env.NODE_ENV === "development",
+      sameSite: "None",
+    });
+
     res.status(200).json({
-      id: existingUser._id,
-      role: existingUser.role,
-      token
+      id : existingUser._id,
+      username : existingUser.username,
+      email: existingUser.email,
+      message: "Login successful",
+  
     });
   } catch (error) {
     console.error("Login Error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-// Get User Information (Protected Route)
-router.get("/get-user-information", authenticateToken, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.status(200).json(user);
-  } catch (error) {
-    console.error("User Info Error:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
 
 module.exports = router;
