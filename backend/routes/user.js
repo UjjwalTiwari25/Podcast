@@ -85,8 +85,56 @@ router.post("/sign-up", async (req, res) => {
       });
     }
   });
+  
+  // User Login Route
+  router.post("/log-in", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+  
+      // Find user by email instead of username
+      const existingUser = await User.findOne({ email });
+      if (!existingUser) {
+        return res.status(400).json({ message: "Invalid credentials" });
+      }
+  
+      // Compare passwords
+      const isMatch = await bcrypt.compare(password, existingUser.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Invalid credentials" });
+      }
+  
+      // Generate JWT token
+      const token = jwt.sign(
+        {
+          id: existingUser._id,
+          email: existingUser.email
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "14d" }
+      );
 
-  // User Loginhttp://localhost:3000/api/v1/sign-upout Route
+      res.cookie("prodcastToken", token, {
+        httpOnly: true,
+        maxAge: 14 * 24 * 60 * 60 * 1000, // 14 days
+        secure: process.env.NODE_ENV === "development",
+        sameSite: "None",
+      });
+  
+      res.status(200).json({
+        id: existingUser._id,
+        username: existingUser.username,
+        email: existingUser.email,
+        message: "Logged in successfully"
+      });
+
+      
+    } catch (error) {
+      console.error("Login Error:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
+
+  // User LogOut Route
 router.post("/log-out", (req, res) => {
   res.clearCookie("prodcastToken", {
     httpOnly: true,
