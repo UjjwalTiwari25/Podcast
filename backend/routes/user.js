@@ -2,6 +2,8 @@ const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const authMiddleware = require("../middleware/auth");
+const user = require("../models/user");
 
 
 // User Signup Route
@@ -151,5 +153,21 @@ router.get("/check-cookie", (req, res) => {
   res.status(200).json({ message :false });
 });
 
+//User Details
+router.get("/user-details", authMiddleware, async (req, res) => {
+  try {
+    const {email} = req.user;
+    const existingUser = await User.findOne({ email : email }).select("-password");
+    return res.status(200).json({
+      user : existingUser,
+
+    });
+    
+  } catch (error) {
+    console.error("User Details Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+    
+  }
+});
 
 module.exports = router;
