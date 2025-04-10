@@ -48,16 +48,16 @@ const SignUp = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center bg-green-200 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <div className="text-center">
-                    <h2 className="text-4xl font-extrabold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    <h2 className="text-4xl font-extrabold bg-green-900 bg-clip-text text-transparent">
                         Create Account
                     </h2>
-                    <p className="mt-1 text-gray-400">Join Podcaster today</p>
+                    <p className="mt-1 text-black">Join Podcaster today</p>
                 </div>
 
-                <div className="relative bg-gray-800 rounded-lg p-8 shadow-xl border border-gray-700">
+                <div className="relative bg-white rounded-lg p-8 shadow-xl border border-gray-700  text-black">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         {error && (
                             <div className="p-4 bg-red-900/50 border border-red-500/50 rounded-lg text-red-200 text-sm">
@@ -66,15 +66,15 @@ const SignUp = () => {
                         )}
 
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">Username</label>
+                            <label htmlFor="username" className="block text-sm font-medium  mb-2">Username</label>
                             <div className="relative">
-                                <UserIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <UserIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 " />
                                 <input
                                     id="username"
                                     name="username"
                                     type="text"
                                     required
-                                    className="pl-10 w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                    className="pl-10 w-full px-4 py-2.5 bg-green-100 placeholder-black border border-gray-600 rounded-lg focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-500"
                                     placeholder="Enter a username"
                                     value={formData.username}
                                     onChange={handleChange}
@@ -83,15 +83,15 @@ const SignUp = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <label htmlFor="email" className="block text-sm font-medium  mb-2">Email</label>
                             <div className="relative">
-                                <EnvelopeIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <EnvelopeIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 " />
                                 <input
                                     id="email"
                                     name="email"
                                     type="email"
                                     required
-                                    className="pl-10 w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                    className="pl-10 w-full px-4 py-2.5 bg-green-100 placeholder-black border border-gray-600 rounded-lg focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-500"
                                     placeholder="Enter your email"
                                     value={formData.email}
                                     onChange={handleChange}
@@ -100,15 +100,15 @@ const SignUp = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                            <label htmlFor="password" className="block text-sm font-medium  mb-2">Password</label>
                             <div className="relative">
-                                <LockClosedIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                                <LockClosedIcon className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 " />
                                 <input
                                     id="password"
                                     name="password"
                                     type="password"
                                     required
-                                    className="pl-10 w-full px-4 py-2.5 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                                    className="pl-10 w-full px-4 py-2.5 bg-green-100 placeholder-black border border-gray-600 rounded-lg focus:outline-none focus:border-green-900 focus:ring-1 focus:ring-green-500"
                                     placeholder="Enter a password"
                                     value={formData.password}
                                     onChange={handleChange}
@@ -119,7 +119,7 @@ const SignUp = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : 'transform hover:scale-[1.02]'}`}
+                            className={`w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white  bg-green-900 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 ${loading ? 'opacity-50 cursor-not-allowed' : 'transform hover:scale-[1.02]'}`}
                         >
                             {loading ? (
                                 <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -132,8 +132,8 @@ const SignUp = () => {
                 </div>
 
                 <div className="text-center">
-                    <p className="text-sm text-gray-400">
-                        Already have an account? <Link to="/logIn" className="font-medium text-blue-400 hover:text-blue-300 transition-colors duration-200">Log in</Link>
+                    <p className="text-sm text-black">
+                        Already have an account? <Link to="/logIn" className="font-bold text-green-900 hover:text-green-700 transition-colors duration-200">Log in</Link>
                     </p>
                 </div>
             </div>
