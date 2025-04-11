@@ -4,6 +4,15 @@ const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const podcastRoutes = require("./routes/podcast");
+const cors = require("cors");
+
+const corsOptions = {
+    origin: "https://podcast-gk2v.onrender.com",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+};
+app.use(cors(corsOptions));
+
 
 require("dotenv").config();
 require("./conn/conn");
