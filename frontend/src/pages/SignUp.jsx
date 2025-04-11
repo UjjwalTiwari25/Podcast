@@ -31,15 +31,16 @@ const SignUp = () => {
 
         try {
             setLoading(true);
-            const response = await axios.post(
-                'https://podcast-gk2v.onrender.com/api/v1/sign-up',
-                formData,
-                { withCredentials: true }
-            );
+            const response = await axios.post('https://podcast-gk2v.onrender.com/api/v1/sign-up', formData);
 
-            // If signup is successful, redirect to login page
-            navigate('/logIn');
+            if (response.data.success) {
+                navigate('/login');
+            } else {
+                setError(response.data.message || 'Registration failed.');
+            }
         } catch (err) {
+            console.log(err);
+            
             const message = err.response?.data?.message || "Signup failed. Please try again.";
             setError(message);
         } finally {
