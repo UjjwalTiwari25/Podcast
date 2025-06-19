@@ -19,7 +19,9 @@ app.use(cors({
   origin: ['https://podcast-gk2v.onrender.com', 'http://localhost:5173'],
   credentials: true
 }));
-app.options('*', cors()); // handle preflight
+
+// Serve static uploads folder
+app.use("/uploads", express.static("uploads"));
 
 // API Routes
 app.use("/api/v1", userRoutes);
