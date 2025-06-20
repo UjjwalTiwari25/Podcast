@@ -10,10 +10,12 @@ const PodcastCard = ({ items }) => {
       e.preventDefault();
       disaptch(playerActions.setDiv());
       disaptch(
-        playerActions.changeImage(`http://localhost:3000/${items.frontImage}`)
+        // eslint-disable-next-line react/prop-types
+        playerActions.changeImage(`${import.meta.env.VITE_API_URL}/${items.frontImage}`)
       );
       disaptch(
-        playerActions.changeSong(`http://localhost:3000/${items.audioFile}`)
+        // eslint-disable-next-line react/prop-types
+        playerActions.changeSong(`${import.meta.env.VITE_API_URL}/${items.audioFile}`)
       );
     }
   };

@@ -6,17 +6,16 @@ import YourPodcasts from "../components/Profile/YourPodcasts";
 
 const Profile = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  if (!isLoggedIn) {
+    return <ErrorPage />;
+  }
+
   return (
-    <div>
-      {isLoggedIn ? (
-        <>
-          <Header />
-          <YourPodcasts />
-        </>
-      ) : (
-        <ErrorPage />
-      )}
-    </div>
+    <main className="min-h-screen bg-gray-100">
+      <Header />
+      <YourPodcasts />
+    </main>
   );
 };
 

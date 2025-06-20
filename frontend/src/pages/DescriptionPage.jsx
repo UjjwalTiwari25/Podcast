@@ -8,7 +8,7 @@ const DescriptionPage = () => {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/get-podcast/${id}`,
+        `${import.meta.env.VITE_API_URL}/get-podcast/${id}`,
         { withCredentials: true }
       );
       setPodcasts(res.data.data);
@@ -21,7 +21,7 @@ const DescriptionPage = () => {
         <>
           <div className="w-2/6 flex items-center justify-center md:justify-start md:items-start">
             <img
-              src={`http://localhost:3000/${Podcasts.frontImage}`}
+              src={`${import.meta.env.VITE_API_URL}/${Podcasts.frontImage}`}
               alt="/"
               className="rounded w-full h-[50vh] object-cover"
             />

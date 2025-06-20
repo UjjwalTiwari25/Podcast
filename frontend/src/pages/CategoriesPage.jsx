@@ -8,7 +8,7 @@ const CategoriesPage = () => {
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(
-        `http://localhost:3000/api/v1/category/${cat}`,
+        `${import.meta.env.VITE_API_URL}/category/${cat}`,
         { withCredentials: true }
       );
       setPodcasts(res.data.data);

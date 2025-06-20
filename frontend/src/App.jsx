@@ -21,7 +21,7 @@ const App = () => {
     const fetch = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3000/api/v1/check-cookie",
+          `${import.meta.env.VITE_API_URL}/check-cookie`,
           { withCredentials: true }
         );
         if (res.data.message == true) {
@@ -36,24 +36,27 @@ const App = () => {
 
   return (
     <div className="">
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            {" "}
-            <Route index element={<Home />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/add-podcast" element={<AddPodcast />} />
-            <Route path="/all-podcasts" element={<AllPodcasts />} />
-            <Route path="/categories/:cat" element={<CategoriesPage />} />
-            <Route path="/description/:id" element={<DescriptionPage />} />
-          </Route>
-          <Route path="/" element={<AuthLayout />}>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
-        </Routes>
-      </Router>
+ <Router>
+  <Routes>
+    {/* Routes under MainLayout */}
+    <Route element={<MainLayout />}>
+      <Route path="/" element={<Home />} />
+      <Route path="/categories" element={<Categories />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/add-podcast" element={<AddPodcast />} />
+      <Route path="/all-podcasts" element={<AllPodcasts />} />
+      <Route path="/categories/:cat" element={<CategoriesPage />} />
+      <Route path="/description/:id" element={<DescriptionPage />} />
+    </Route>
+
+    {/* Routes under AuthLayout */}
+    <Route element={<AuthLayout />}>
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+    </Route>
+  </Routes>
+</Router>
+
     </div>
   );
 };

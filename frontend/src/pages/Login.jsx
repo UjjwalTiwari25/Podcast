@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -22,7 +22,7 @@ const Login = () => {
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/sign-in",
+        `${import.meta.env.VITE_API_URL}/log-in`,
         Values,
         {
           withCredentials: true,

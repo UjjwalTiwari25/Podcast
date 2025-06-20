@@ -52,7 +52,7 @@ const InputPodcast = () => {
     data.append("audioFile", audioFile);
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/add-podcast",
+        `${import.meta.env.VITE_API_URL}/add-podcast`,
         data,
         {
           headers: {

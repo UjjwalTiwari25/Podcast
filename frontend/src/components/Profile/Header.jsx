@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const res = await axios.get("http://localhost:3000/api/v1/user-details", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/user-details`, {
         withCredentials: true,
       });
       setUserData(res.data.user);
@@ -17,7 +17,7 @@ const Header = () => {
     fetchUserDetails();
   }, []);
   const LogoutHandler = async () => {
-    const res = await axios.post("http://localhost:3000/api/v1/logout", {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/log-out`, {
       withCredentials: true,
     });
     //console.log(res);

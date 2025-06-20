@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ErrorPage from "./ErrorPage";
+
 const Signup = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
@@ -18,17 +19,20 @@ const Signup = () => {
     const { name, value } = e.target;
     setValues({ ...Values, [name]: value });
   };
+
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/sign-up",
-        Values
+        `${import.meta.env.VITE_API_URL}/sign-up`,
+        Values,
+        { withCredentials: true }
       );
       navigate("/login");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Signup failed");
     }
   };
+
   return (
     <>
       {isLoggedIn ? (
@@ -79,6 +83,7 @@ const Signup = () => {
               </div>
               <div className="w-full flex flex-col mt-4">
                 <button
+                  type="button"
                   className="bg-green-900 font-semibold text-xl text-white rounded py-2"
                   onClick={handleSubmit}
                 >

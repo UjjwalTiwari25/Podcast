@@ -6,7 +6,7 @@ const AllPodcasts = () => {
   const [Podcasts, setPodcasts] = useState();
   useEffect(() => {
     const fetch = async () => {
-      const res = await axios.get("http://localhost:3000/api/v1/get-podcasts");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/get-podcasts`);
       setPodcasts(res.data.data);
     };
     fetch();
